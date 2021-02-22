@@ -2,11 +2,12 @@
 <div class="card">
   <img src={{image}} alt="">
   <div class="content">
-    <h2><strong>Name: </strong>{{animalname}}</h2>
-    <span><strong>Breed: </strong> {{speciesname}}</span>
-    <span><strong>Sex: </strong>{{sexname}}</span>
-    <span><strong>Location: </strong>{{location}}</span>
-    <a href="/animals/{{id}}?url={{image}}"><button>Adopt me!</button></a>
+    <h2><strong>Name: </strong>{{_doc.animalname}}</h2>
+    <span><strong>Breed: </strong> {{_doc.breedname}}</span>
+    <span><strong>Specie: </strong>{{_doc.speciesname}}</span>
+
+  
+    <a href="/animals/{{_doc._id}}?url={{image}}"><button>Details</button></a>
   </div>
 </div>
 {{/each}}
