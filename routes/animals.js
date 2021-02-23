@@ -5,10 +5,7 @@ const AnimalSchema = require('../models/animals');
 
 //const data = AnimalSchema.find();
 const router = express.Router();
-//let animals = []
-//for (let i = 0; i< 10; i++) {
-//  animals.push(data[i]);
-//}
+ 
 
 /* GET home page. */
 router.get('/', async function(req, res) {
@@ -43,11 +40,13 @@ router.get('/:id', (req, res) => {
  
   const {id} = req.params;
   const {url} = req.query;
-  const animal = AnimalSchema.find({id: 40706})
-
-  const properties = Object.keys(animal).map(property => animal[property])
-  console.log(properties)
-  res.render('animal', {animalname: animal.animalname, properties, image: url})
+ 
+  AnimalSchema.find({id:id}).then( animal=>{
+    const properties = Object.keys(animal).map(property => animal[property])
+    console.log(properties)
+    res.render('animal', {animalname: animal.animalname, properties, image: url})
+  
+  })
 });
 
 router.post('/',async (req,res)=>{
@@ -68,7 +67,25 @@ router.post('/',async (req,res)=>{
  
 });
 
+router.delete('/:id',async (req, res) => {
+  const {id} = req.params;
+  try{
+    const removedPost = await AnimalSchema.remove({id:id});
+    res.json(removedPost);
+  }catch(err){
+    res.json({message:err});
+  }
+});
 
+router.put('/:id',async (req, res) => {
+  const {id} = req.params;
+  try{
+    const removedPost = await AnimalSchema.updateOne({id:id});
+    res.json(removedPost);
+  }catch(err){
+    res.json({message:err});
+  }
+});
 
 module.exports = router;
 

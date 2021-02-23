@@ -2,20 +2,18 @@ const mongoose = require('mongoose');
 
 const AnimalSchema = mongoose.Schema({
   id:{
-    type:Number,
-    required:true
+    type:Number
   },
   animalsname:{
     type:String,
-    required:true
+    required:true,
+    minimum: 5
   },
   breedname:{
     type:String,
-    required:true
   },
   speciesname:{
     type:String,
-    required:true
   },
   animalsage:{
     type:String,
@@ -23,7 +21,6 @@ const AnimalSchema = mongoose.Schema({
   },
   basecolour:{
     type:String,
-    required:true
   },
   owner:{
     type:Number
