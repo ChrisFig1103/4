@@ -97,20 +97,18 @@ router.get('/adopted/:id', (req, res) => {
   
   })
 });
-router.post('/adoption/:id', async(req, res) => {
+router.get('/adoption/:id', async(req, res) => {
   const {id} = req.params;
   const owner = req.query.owner;
   const name_owner=""
   if (req.query){
-
-    UserSchema.find({id:owner}).then(user =>{
+    await UserSchema.find({id:owner}).then(user =>{
     const properties = Object.keys(user).map(property => user[property])
     name_owner = properties[0].name;
-    }).catch(function(error) {
+    })
+    .catch(function(error) {
       res.send(error);
     });
-
-
     await AnimalSchema.updateOne({id:id},{ $set:{owner:name_owner}}).then( _ =>{
       console.log( req.query)
       res.statusCode = 302;
@@ -118,38 +116,27 @@ router.post('/adoption/:id', async(req, res) => {
       res.end(); 
     }) 
   }
-});
-
-router.post('/adoption/:id', async(req, res) => {
-  const {id} = req.params;
-  const owner = req.query.owner;
-  let user=userSchema.buscarID(owner);
-
-  UserSchema.statics.buscarID = async (uid) => {
-    mongoose.set('debug', true);
-  let user = await User.findOne({
-      uid,
-  });
-  console.log(user);
-  return user;
-  };
-
-
-
-  if(!user){
-    res.status(401).send("Error");
+  if (req.query){
+    await UserSchema.find({id:owner}).then(user =>{
+    const properties = Object.keys(user).map(property => user[property])
+    name_owner = properties[0].name;
+    })
+    .catch(function(error) {
+      res.send(error);
+    });
+    await AnimalSchema.updateOne({id:id},{ $set:{owner:name_owner}}).then( _ =>{
+      console.log( req.query)
+      res.statusCode = 302;
+      res.setHeader("Location", "http://localhost:3000/animals");
+      res.end(); 
+    }) 
   }
 
-  AnimalSchema.updateOne({id:id},{ $set:{owner:user.name}}).then( _ =>{
-    console.log( req.query)
-    res.statusCode = 302;
-    res.setHeader("Location", "http://localhost:3000/animals%22");
-    res.end(); 
-
-  }) 
-
-
 });
+ 
+
+
+ 
 
 
 
