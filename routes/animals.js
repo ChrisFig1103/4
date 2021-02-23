@@ -37,10 +37,8 @@ router.get('/', async function(req, res) {
   });
 
 router.get('/:id', (req, res) => {
- 
   const {id} = req.params;
   const {url} = req.query;
- 
   AnimalSchema.find({id:id}).then( animal=>{
     const properties = Object.keys(animal).map(property => animal[property])
     console.log(properties)
@@ -87,7 +85,7 @@ router.put('/:id',async (req, res) => {
   }
 });
 
-router.get('adopted/:id', (req, res) => {
+router.get('/adopted/:id', (req, res) => {
 
   const {id} = req.params;
   const {url} = req.query;
@@ -95,7 +93,8 @@ router.get('adopted/:id', (req, res) => {
   AnimalSchema.find({id:id}).then( animal=>{
     const properties = Object.keys(animal).map(property => animal[property])
     console.log(properties)
-    res.render('animal', {animalname: animal.animalname, properties, image: url})
+   
+    res.render('adopted', {animalname: animal.animalname, properties, image: url})
   
   })
 });

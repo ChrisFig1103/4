@@ -1,18 +1,22 @@
 
 <div class="card">
-    <h1>Adopt me </h1>
-    <br><br>
+    
     <div class="content">
-    <p>You're adopting {{_doc.breedname}} please write <br>
-        your user's id sow we can register you on <br>
-        on our database.<br>
-        <br>
+        {{#each properties}}
+    <p>You're adopting <b>{{_doc.animalname}} </b>  please write 
+        your user's id sow we can register you on 
+        on our database.
+        <br> <br>
         Thank you for adopting!
     </p>
     
   <label for="name">ID:</label>
 
   <input type="text" id="name" name="name" >
+   <br>
+   
+   <a href="/animals/adoption/{{_doc.id}}?name"><button>Adopt</button></a>
  </div>
-    <a href="/animals"><button>Adopt</button></a>
+ {{/each}}
+ 
 </div>
