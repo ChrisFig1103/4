@@ -98,6 +98,24 @@ router.get('/adopted/:id', (req, res) => {
   
   })
 });
+router.post('/adoption/:id', async(req, res) => {
+  const {id} = req.params;
+  const {owner} = req.query;
+  
+  try{
+    const removedAnimal = await AnimalSchema.updateOne({id:id},{ $set:{owner:owner}});
+
+    res.statusCode = 302;
+    res.setHeader("Location", "http://localhost:3000/animals");
+    res.end(); 
+    
+  }catch(err){
+    res.json({message:err});
+  }
+
+
+});
+
 
 
 module.exports = router;

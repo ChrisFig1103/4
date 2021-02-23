@@ -23,7 +23,7 @@ const AnimalSchema = mongoose.Schema({
     type:String,
   },
   owner:{
-    type:Number
+    type:String
   }
 
 })

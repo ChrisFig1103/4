@@ -8,14 +8,17 @@
         on our database.
         <br> <br>
         Thank you for adopting!
-    </p>
+    </p> 
     
-  <label for="name">ID:</label>
-
-  <input type="text" id="name" name="name" >
+ 
+    <form action="/animals/adoption/{{_doc.id}}" method="POST">
+<label for="name">ID:</label>
+     <input type="text" id="owner" name="owner" >
+     <button>Adopt</button> 
+  
+  </form>
    <br>
-   
-   <a href="/animals/adoption/{{_doc.id}}?name"><button>Adopt</button></a>
+    
  </div>
  {{/each}}
  
