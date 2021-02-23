@@ -2,6 +2,7 @@ const express = require('express');
 //const data = require('../data/data2.json');
 const axios = require('axios');
 const AnimalSchema = require('../models/animals');
+const UserSchema = require('../models/users');
 
 //const data = AnimalSchema.find();
 const router = express.Router();
@@ -96,14 +97,43 @@ router.get('/adopted/:id', (req, res) => {
   
   })
 });
+/*router.post('/adoption/:id', async(req, res) => {
+  const {id} = req.params;
+  const owner = req.query.owner;
+  if (req.query){
+    await AnimalSchema.updateOne({id:id},{ $set:{owner:owner}}).then( _ =>{
+      console.log( req.query)
+      res.statusCode = 302;
+      res.setHeader("Location", "http://localhost:3000/animals");
+      res.end(); 
+    }) 
+  }
+});*/
+
 router.post('/adoption/:id', async(req, res) => {
   const {id} = req.params;
   const owner = req.query.owner;
-  
-  AnimalSchema.updateOne({id:id},{ $set:{owner:owner}}).then( _ =>{
+  let user=userSchema.buscarID(owner);
+
+  UserSchema.statics.buscarID = async (uid) => {
+    mongoose.set('debug', true);
+  let user = await User.findOne({
+      uid,
+  });
+  console.log(user);
+  return user;
+  };
+
+
+
+  if(!user){
+    res.status(401).send("Error");
+  }
+
+  AnimalSchema.updateOne({id:id},{ $set:{owner:user.name}}).then( _ =>{
     console.log( req.query)
     res.statusCode = 302;
-    res.setHeader("Location", "http://localhost:3000/animals");
+    res.setHeader("Location", "http://localhost:3000/animals%22");
     res.end(); 
 
   }) 

@@ -45,12 +45,15 @@ router.get('/:id',(req, res) => {
   
   UserSchema.find({id:id}).then(user =>{
     const properties = Object.keys(user).map(property => user[property])
-    console.log(user)
-    res.json(user);
+    console.log(properties)
+    res.json(properties);
 
   }).catch(function(error) {
     res.send(error);
   });
+
+ 
+
 
 });
  
@@ -68,6 +71,6 @@ router.delete('/:id',async (req, res) => {
 });
 
 
-
+ 
 
 module.exports = router;
