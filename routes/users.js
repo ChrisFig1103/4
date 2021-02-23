@@ -45,7 +45,7 @@ router.get('/:id',(req, res) => {
   
   UserSchema.find({id:id}).then(user =>{
     const properties = Object.keys(user).map(property => user[property])
-    console.log(properties)
+    console.log(properties[0].name)
     res.json(properties);
 
   }).catch(function(error) {
