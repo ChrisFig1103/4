@@ -70,8 +70,8 @@ router.post('/',async (req,res)=>{
 router.delete('/:id',async (req, res) => {
   const {id} = req.params;
   try{
-    const removedPost = await AnimalSchema.remove({id:id});
-    res.json(removedPost);
+    const removedAnimal = await AnimalSchema.remove({id:id});
+    res.json(removedAnimal);
   }catch(err){
     res.json({message:err});
   }
@@ -80,12 +80,26 @@ router.delete('/:id',async (req, res) => {
 router.put('/:id',async (req, res) => {
   const {id} = req.params;
   try{
-    const removedPost = await AnimalSchema.updateOne({id:id});
-    res.json(removedPost);
+    const removedAnimal = await AnimalSchema.updateOne({id:id});
+    res.json(removedAnimal);
   }catch(err){
     res.json({message:err});
   }
 });
+
+router.get('adopted/:id', (req, res) => {
+
+  const {id} = req.params;
+  const {url} = req.query;
+ 
+  AnimalSchema.find({id:id}).then( animal=>{
+    const properties = Object.keys(animal).map(property => animal[property])
+    console.log(properties)
+    res.render('animal', {animalname: animal.animalname, properties, image: url})
+  
+  })
+});
+
 
 module.exports = router;
 
