@@ -86,17 +86,7 @@ router.put('/:id',async (req, res) => {
   }
 });
 
-router.get('/adopted/:id', (req, res) => {
-
-  const {id} = req.params;
-  const {url} = req.query;
  
-  AnimalSchema.find({id:id}).then( animal=>{
-    const properties = Object.keys(animal).map(property => animal[property]) 
-    res.render('adopted', {animalname: animal.animalname, properties, image: url})
-  
-  })
-});
 router.get('/adoption/:id', (req, res) => {
   const {id} = req.params;
   const owner = req.query.owner;
@@ -114,6 +104,31 @@ router.get('/adoption/:id', (req, res) => {
     }) 
   }
 
+  router.put('/:id',async (req, res) => {
+    const {id} = req.params;
+    const resp=req.body;
+      const animal = new animalSchema({
+          id:resp.id,
+          animalsname:resp.animalsname,
+          breedname:resp.breedname,
+          speciesname:resp.speciesname,
+          animalsage:resp.animalsage,
+          basecolour:resp.basecolour
+      });
+      const result = schema.validate(animal)
+      if (result.error) return res.status(400).send(result.error.details[0].message);
+      try{
+        AnimalSchema.findOne({id:id}).then(animal =>{
+          const removedAnimal = AnimalSchema.actualizarAnimal(animal._id,animal);
+          res.json(removedAnimal);
+        }).catch(function(error){
+          res.send(error);
+           });
+        
+      }catch(err){
+        res.json({message:err});
+      }
+  });
  
 
 });
