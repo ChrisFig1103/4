@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
 const animalSchema = require('../models/animals');
-const usersSchema = require('../models/users');
+const usersSchema = require('../models/');
 
 router.get('/:_id', async(req, res) => {
 const {_id} = req.params;

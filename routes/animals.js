@@ -87,64 +87,11 @@ router.put('/:id',async (req, res) => {
 });
 
  
-<<<<<<< HEAD
 router.get('/adoption/:id', (req, res) => {
-=======
-  AnimalSchema.find({id:id}).then( animal=>{
-    const properties = Object.keys(animal).map(property => animal[property]) 
-    res.render('adopted', {animalname: animal.animalname, properties, image: url})
-  
-  })
-});
-router.post('/adoption/:id', async(req, res) => {
->>>>>>> parent of 55cdf52... sa
   const {id} = req.params;
   const owner = req.query.owner;
   const name_owner=""
   if (req.query){
-<<<<<<< HEAD
-    UserSchema.find({id:id}).then(user =>{
-    const properties = Object.keys(user).map(property => user[property])
-    console.log(properties[0].name)
-     
-    })
-    
-    AnimalSchema.updateOne({id:id},{ $set:{owner:name_owner}}).then( _ =>{
-      console.log( req.query)
-      res.redirect("/animals")
-    }) 
-  }
-
-  router.put('/:id',async (req, res) => {
-    const {id} = req.params;
-    const resp=req.body;
-      const animal = new animalSchema({
-          id:resp.id,
-          animalsname:resp.animalsname,
-          breedname:resp.breedname,
-          speciesname:resp.speciesname,
-          animalsage:resp.animalsage,
-          basecolour:resp.basecolour
-      });
-      const result = schema.validate(animal)
-      if (result.error) return res.status(400).send(result.error.details[0].message);
-      try{
-        AnimalSchema.findOne({id:id}).then(animal =>{
-          const removedAnimal = AnimalSchema.actualizarAnimal(animal._id,animal);
-          res.json(removedAnimal);
-        }).catch(function(error){
-          res.send(error);
-           });
-        
-      }catch(err){
-        res.json({message:err});
-      }
-  });
- 
-
-});
- 
-=======
 
     UserSchema.find({id:owner}).then(user =>{
     const properties = Object.keys(user).map(property => user[property])
@@ -188,7 +135,6 @@ router.post('/adoption/:id', async(req, res) => {
     res.statusCode = 302;
     res.setHeader("Location", "http://localhost:3000/animals%22");
     res.end(); 
->>>>>>> parent of 55cdf52... sa
 
   }) 
 
