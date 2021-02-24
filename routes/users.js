@@ -34,28 +34,23 @@ router.put('/:id',async (req, res) => {
   const {id} = req.params;
   try{
     const removedUser = await UserSchema.updateOne({id:id});
-    res.json(removedUser);
+    res.status(200).json(removedUser);
   }catch(err){
-    res.json({message:err});
+    res.status(400).json({message:err});
   }
 });
 
 router.get('/:id',(req, res) => {
   const {id} = req.params;
-  
   UserSchema.find({id:id}).then(user =>{
     const properties = Object.keys(user).map(property => user[property])
     console.log(properties[0].name)
     res.json(properties);
-
   }).catch(function(error) {
     res.send(error);
   });
-
- 
-
-
 });
+
  
 
 
@@ -70,7 +65,28 @@ router.delete('/:id',async (req, res) => {
 
 });
 
-
+router.put('/:id',async (req, res) => {
+  const {id} = req.params;
+  const resp=req.body;
+    const user = new animalSchema({
+        id:resp.id,
+        name:resp.animalsname,
+        age:resp.animalsage,
+    });
+    const result = schema.validate(user)
+    if (result.error) return res.status(400).send(result.error.details[0].message);
+    try{
+      UserSchema.findOne({id:id}).then(user =>{
+        const removedUser = UserSchema.actualizarAnimal(user._id,user);
+        res.json(removedUser);
+      }).catch(function(error){
+        res.send(error);
+         });
+      
+    }catch(err){
+      res.json({message:err});
+    }
+});
  
 
 module.exports = router;
