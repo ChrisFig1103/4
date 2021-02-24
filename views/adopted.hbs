@@ -11,20 +11,15 @@
     </p> 
     
  
-    <form action="/animals/adoption/{{_doc.id}}">
+    <form action="/animals/adoption/{{_doc.id}}" method="POST">
 <label for="name">ID:</label>
      <input type="text" id="owner" name="owner" >
      <button>Adopt</button> 
   
   </form>
    <br>
-     
-
-
-
+    
  </div>
-
-
  {{/each}}
  
 </div>
