@@ -86,30 +86,16 @@ router.put('/:id',async (req, res) => {
   }
 });
 
-
-router.post('/adoption/:id', async(req, res) => {
+router.get('/adopted/:id',async (req, res) => { 
   const {id} = req.params;
-  const owner = req.query.owner;
-  const name_owner=""
-  if (req.query){
-
-    UserSchema.find({id:owner}).then(user =>{
-    const properties = Object.keys(user).map(property => user[property])
-    name_owner = properties[0].name;
-    }).catch(function(error) {
-      res.send(error);
-    });
-
-
-    await AnimalSchema.updateOne({id:id},{ $set:{owner:name_owner}}).then( _ =>{
-      console.log( req.query)
-      res.statusCode = 302;
-      res.setHeader("Location", "http://localhost:3000/animals");
-      res.end(); 
-    }) 
-  }
-});
-
+  const {url} = req.query;
+ 
+  AnimalSchema.find({id:id}).then( animal=>{
+    const properties = Object.keys(animal).map(property => animal[property]) 
+    res.render('adopted', {animalname: animal.animalname, properties, image: url})
+  })
+})
+ 
  
 
 
