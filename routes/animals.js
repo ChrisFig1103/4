@@ -87,13 +87,13 @@ router.put('/:id',async (req, res) => {
 });
 
  
-router.get('/adoption/:id', (req, res) => {
+router.get('/adoption/:id', async(req, res) => {
   const {id} = req.params;
   const owner = req.query.owner;
   const name_owner=""
   if (req.query){
 
-    UserSchema.find({id:owner}).then(user =>{
+    await UserSchema.find({id:owner}).then(user =>{
     const properties = Object.keys(user).map(property => user[property])
     name_owner = properties[0].name;
     }).catch(function(error) {

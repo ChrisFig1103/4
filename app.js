@@ -20,7 +20,7 @@ mongoose.connect(process.env.DB_CONNECTION,{useNewUrlParser:true},() =>
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const animalsRouter = require('./routes/animals');
-const adoptionRouter = require('./routes/adoption');
+ 
 const app = express();
 
 // view engine setup
@@ -44,7 +44,7 @@ app.set('view engine', 'hbs');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/animals', animalsRouter);
-app.use('/adoption', adoptionRouter);
+ 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
