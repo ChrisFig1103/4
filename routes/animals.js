@@ -96,16 +96,13 @@ router.get('/adopted/:id',(req, res) => {
   const {id} = req.params;
   const {owner} = req.query;
   let owner_name = "";
-  let animal ="";
-
-  UserSchema.find({id:id}).then( user =>{
+  
+  UserSchema.find({id:owner}).then( user =>{
     owner_name = Object.keys(user).map(property => user[property])
+    console.log(owner_name[0].name);
   }).then(()=>{
-    AnimalSchema.find({id:id}).then( animal=>{
-    animal = Object.keys(animal).map(property => animal[property]) 
-      //res.render('adopted', {animalname: animal.animalname, properties})
-    }).then(()=>{
-      res.send(owner_name);
+    AnimalSchema.updateOne({id:id},{$set:{owner:owner_name[0].name}}).then(()=>{
+      res.redirect('/animals');
     })
   })
 })
