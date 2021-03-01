@@ -9,15 +9,13 @@ const bodyParser = require('body-parser');
 require('dotenv/config');
 
 
-
 // Database connection
 const mongoose = require('mongoose');
- 
-mongoose.connect(process.env.DB_CONNECTION,{useNewUrlParser:true},() =>
+
+mongoose.connect(process.env.DB_CONNECTION,{useNewUrlParser:true,useUnifiedTopology:true},() =>
   console.log('Conectado a la base de datos')
 );
 
-const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const animalsRouter = require('./routes/animals');
  
@@ -28,7 +26,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
-app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
@@ -41,7 +38,7 @@ app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __di
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-app.use('/', indexRouter);
+ 
 app.use('/users', usersRouter);
 app.use('/animals', animalsRouter);
  

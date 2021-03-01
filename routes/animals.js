@@ -1,10 +1,9 @@
 const express = require('express');
-//const data = require('../data/data2.json');
 const axios = require('axios');
 const AnimalSchema = require('../models/animals');
 const UserSchema = require('../models/users');
+ 
 
-//const data = AnimalSchema.find();
 const router = express.Router();
  
 
@@ -42,7 +41,6 @@ router.get('/:id', (req, res) => {
   const {url} = req.query;
   AnimalSchema.find({id:id}).then( animal=>{
     const properties = Object.keys(animal).map(property => animal[property])
-    console.log(properties)
     res.render('animal', {animalname: animal.animalname, properties, image: url})
   
   })
@@ -86,18 +84,31 @@ router.put('/:id',async (req, res) => {
   }
 });
 
-router.get('/adopted/:id',async (req, res) => { 
+router.get('/adoption/:id',async (req, res) => { 
   const {id} = req.params;
-  const {url} = req.query;
- 
-  AnimalSchema.find({id:id}).then( animal=>{
+  await AnimalSchema.find({id:id}).then( animal=>{
     const properties = Object.keys(animal).map(property => animal[property]) 
-    res.render('adopted', {animalname: animal.animalname, properties, image: url})
+    res.render('adopted', {properties})
   })
 })
- 
- 
 
+router.get('/adopted/:id',(req, res) => { 
+  const {id} = req.params;
+  const {owner} = req.query;
+  let owner_name = "";
+  let animal ="";
+
+  UserSchema.find({id:id}).then( user =>{
+    owner_name = Object.keys(user).map(property => user[property])
+  }).then(()=>{
+    AnimalSchema.find({id:id}).then( animal=>{
+    animal = Object.keys(animal).map(property => animal[property]) 
+      //res.render('adopted', {animalname: animal.animalname, properties})
+    }).then(()=>{
+      res.send(owner_name);
+    })
+  })
+})
 
 module.exports = router;
 

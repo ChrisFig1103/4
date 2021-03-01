@@ -4,13 +4,13 @@
   {{#each properties}}
  <br><br>
 
-   <span><strong>Name: </strong> {{_doc.animalname}}</span>
+  <span><strong>Name: </strong> {{_doc.animalname}}</span>
   <span><strong>Breed: </strong>{{_doc.breedname}}</span>
   <span><strong>Specie: </strong> {{_doc.speciesname}}</span>
   <span><strong>Age: </strong>{{_doc.animalage}}</span>
   <span><strong>Colour: </strong>{{_doc.basecolour}}</span>
   <span><strong>Owner: </strong>{{_doc.owner}}</span>
-  <a href="/animals/adopted/{{_doc.id}} "> <button>Adopt</button></a>
+  <a href="adoption/{{_doc.id}} "> <button>Adopt</button></a>
   {{/each}}
   
 </div>
