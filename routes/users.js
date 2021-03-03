@@ -72,6 +72,8 @@ router.put('/:id',async (req, res) => {
         id:resp.id,
         name:resp.animalsname,
         age:resp.animalsage,
+        email:resp.email,
+        image:resp.image,
     });
     const result = schema.validate(user)
     if (result.error) return res.status(400).send(result.error.details[0].message);

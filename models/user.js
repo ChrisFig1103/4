@@ -5,7 +5,7 @@ const {
 } = require('mongoose');
 
 const UserSchema = mongoose.Schema({
-  ownerid:{
+  id:{
     type:Number
   },
   name:{
@@ -13,23 +13,14 @@ const UserSchema = mongoose.Schema({
   },
   age:{
     type:Number,
-
+  },
+  email:{
+    type:String,
+  },
+  image:{
+    type:String,
   }
 })
-UserSchema.statics.actualizarUser = async (_id, userData) => {
-    console.log("datos a guardar", userData)
-    let updated ={}
-    try {
-      updated = await user.updateOne(
-            {_id:_id}, 
-            {$set: userData}
-          );
-    } catch (error) {
-        console.log(error)
-    }
-  
-  console.log("actualizado", updated);
-  return updated;
-};
+
 let user= mongoose.model('Users',UserSchema);
 module.exports = user;

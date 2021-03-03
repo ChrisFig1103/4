@@ -18,9 +18,25 @@ mongoose.connect(process.env.DB_CONNECTION,{useNewUrlParser:true,useUnifiedTopol
 
 const usersRouter = require('./routes/users');
 const animalsRouter = require('./routes/animals');
- 
+const authRouter = require('./routes/auth'); 
+const profileRouter = require('./routes/profile');
+const indexRouter = require('./routes/index');
+const passport = require('passport');
+const cookieSession = require('cookie-session')
+require('./config/passport'); 
+
+
 const app = express();
 
+
+app.use(cookieSession({   maxAge: 24 * 60	 * 60 * 1000,   
+  keys: ['clave'] //clave para encriptar 
+})) 
+
+
+//Passport
+app.use(passport.initialize());
+app.use(passport.session());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -38,11 +54,12 @@ app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __di
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
- 
+app.use('/',indexRouter);
 app.use('/users', usersRouter);
 app.use('/animals', animalsRouter);
+app.use('/auth',authRouter);
+app.use('/profile',profileRouter);
  
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
