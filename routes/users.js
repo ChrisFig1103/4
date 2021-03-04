@@ -1,7 +1,5 @@
 let express = require('express');
-const { remove } = require('../models/animals');
 let router = express.Router();
-const AnimalSchema = require('../models/animals');
 const UserSchema = require('../models/users');
 
 /* GET users listing. */
@@ -71,9 +69,7 @@ router.put('/:id',async (req, res) => {
     const user = new animalSchema({
         id:resp.id,
         name:resp.animalsname,
-        age:resp.animalsage,
-        email:resp.email,
-        image:resp.image,
+        age:resp.animalsage
     });
     const result = schema.validate(user)
     if (result.error) return res.status(400).send(result.error.details[0].message);

@@ -37,6 +37,8 @@ app.use(cookieSession({   maxAge: 24 * 60	 * 60 * 1000,
 //Passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
