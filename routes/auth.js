@@ -24,7 +24,7 @@ router.get('/google/callback',
         // print req.query.code 
         console.log(req.user);
         // Successful authentication, redirect home. 
-        res.redirect('/profile' );
+        res.redirect('/profile');
     }
 )
 
