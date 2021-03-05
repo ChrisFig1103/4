@@ -26,8 +26,8 @@ router.get('/', async function(req, res) {
     Promise.all(animalsPromises)
       .then(function(urls) {
         const animalsWithImage = animals.map((animal, index) => ({...animal, image: urls[index]}));     
-        
-        res.render('animals', { animalsWithImage ,isLoggedIn:Boolean(req.user)});
+        const user = req.user[0]
+        res.render('animals', { animalsWithImage ,isLoggedIn:Boolean(req.user),image:user.image,name:user.displayName,email:user.email ,isLoggedIn:Boolean(req.user)});
       })
       .catch(function(errors) {
         res.send(`${errors}`)
