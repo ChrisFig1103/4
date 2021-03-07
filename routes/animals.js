@@ -29,9 +29,11 @@ router.get('/', async function(req, res) {
         const user = req.user[0]
         res.render('animals', { animalsWithImage ,isLoggedIn:Boolean(req.user),image:user.image,name:user.displayName,email:user.email ,isLoggedIn:Boolean(req.user)});
       })
-      .catch(function(errors) {
-        res.send(`${errors}`)
+      .catch(function(_) {
+    
+        res.redirect('/auth/login')
       });
+      
       
   })
   });
