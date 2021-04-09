@@ -7,7 +7,6 @@ const UserSchema = require('../models/users');
 const router = express.Router();
  
 
-/* GET home page. */
 router.get('/', async function(req, res) {
   AnimalSchema.find().then( animals=>{
     const animalsPromises = animals.map(() => {
