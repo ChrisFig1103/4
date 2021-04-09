@@ -29,11 +29,8 @@ router.get('/', async function(req, res) {
         res.render('animals', { animalsWithImage ,isLoggedIn:Boolean(req.user),image:user.image,name:user.displayName,email:user.email ,isLoggedIn:Boolean(req.user)});
       })
       .catch(function(_) {
-    
         res.redirect('/auth/login')
-      });
-      
-      
+      });  
   })
   });
 
@@ -110,3 +107,4 @@ router.get('/adopted/:id',(req, res) => {
 
 module.exports = router;
 
+ 
