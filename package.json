@@ -2,8 +2,12 @@
   "name": "adopt-me",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "12.11.1"
+    },
+  
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node app.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
